@@ -1,0 +1,416 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+ 
+    <title>Brownie Profit & Pricing Calculator</title> 
+ 
+    <style> 
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        } 
+ 
+        body { 
+            font-family: Arial, Helvetica, sans-serif; 
+            background: #f5f3f0; 
+            color: #2d201b; 
+ 
+            min-height: 100vh; 
+ 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+ 
+            padding: 20px; 
+        } 
+ 
+        .calculator { 
+            background: white; 
+ 
+            width: 100%; 
+            max-width: 700px; 
+ 
+            padding: 40px; 
+ 
+            border-radius: 18px; 
+ 
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.08); 
+        } 
+ 
+        .header { 
+            text-align: center; 
+            margin-bottom: 35px; 
+        } 
+ 
+        .header h1 { 
+            color: #4a2c21; 
+            font-size: 32px; 
+            margin-bottom: 8px; 
+        } 
+ 
+        .header p { 
+            color: #777; 
+            font-size: 16px; 
+        } 
+ 
+        .input-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+            margin-bottom: 30px; 
+        } 
+ 
+        .input-group label { 
+            display: block; 
+            font-weight: bold; 
+            margin-bottom: 8px; 
+            font-size: 14px; 
+        } 
+ 
+        .input-wrapper { 
+            position: relative; 
+        } 
+ 
+        .currency-symbol { 
+            position: absolute; 
+            left: 15px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            color: #666; 
+        } 
+ 
+        input { 
+            width: 100%; 
+ 
+            padding: 14px; 
+ 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+ 
+            font-size: 17px; 
+ 
+            outline: none; 
+ 
+            transition: border 0.2s; 
+        } 
+ 
+        .currency-input { 
+            padding-left: 32px; 
+        } 
+ 
+        input:focus { 
+            border-color: #7a4a35; 
+        } 
+ 
+        button { 
+            width: 100%; 
+ 
+            padding: 15px; 
+ 
+            background: #4a2c21; 
+            color: white; 
+ 
+            border: none; 
+            border-radius: 8px; 
+ 
+            font-size: 17px; 
+            font-weight: bold; 
+ 
+            cursor: pointer; 
+ 
+            margin-bottom: 30px; 
+ 
+            transition: background 0.2s; 
+        } 
+ 
+        button:hover { 
+            background: #633c2d; 
+        } 
+ 
+        .results { 
+            display: grid; 
+ 
+            grid-template-columns: 
+                repeat(2, 1fr); 
+ 
+            gap: 15px; 
+        } 
+ 
+        .result-card { 
+            background: #f8f6f4; 
+ 
+            padding: 20px; 
+ 
+            border-radius: 10px; 
+        } 
+ 
+        .result-card p { 
+            color: #777; 
+            font-size: 14px; 
+            margin-bottom: 6px; 
+        } 
+ 
+        .result-card h2 { 
+            color: #4a2c21; 
+            font-size: 26px; 
+        } 
+ 
+        .profit { 
+            background: #edf7ef; 
+        } 
+ 
+        .profit h2 { 
+            color: #24733d; 
+        } 
+ 
+        .margin { 
+            background: #f3eef8; 
+        } 
+ 
+        .margin h2 { 
+            color: #65408a; 
+        } 
+ 
+        @media (max-width: 650px) { 
+ 
+            .calculator { 
+                padding: 25px; 
+            } 
+ 
+            .input-grid { 
+                grid-template-columns: 1fr; 
+            } 
+ 
+            .results { 
+                grid-template-columns: 1fr; 
+            } 
+ 
+            .header h1 { 
+                font-size: 26px; 
+            } 
+        } 
+    </style> 
+</head> 
+ 
+<body> 
+ 
+<div class="calculator"> 
+ 
+    <div class="header"> 
+        <h1>Brownie Profit Calculator</h1> 
+        <p>Calculate your revenue, costs and gross profit.</p> 
+    </div> 
+ 
+ 
+    <div class="input-grid"> 
+ 
+        <div class="input-group"> 
+ 
+            <label for="sellingPrice"> 
+                Selling price per brownie 
+            </label> 
+ 
+            <div class="input-wrapper"> 
+ 
+                <span class="currency-symbol">£</span> 
+ 
+                <input 
+                    type="number" 
+                    id="sellingPrice" 
+                    class="currency-input" 
+                    value="3.00" 
+                    min="0" 
+                    step="0.01" 
+                > 
+ 
+            </div> 
+ 
+        </div> 
+ 
+ 
+        <div class="input-group"> 
+ 
+            <label for="costPrice"> 
+                Cost per brownie 
+            </label> 
+ 
+            <div class="input-wrapper"> 
+ 
+                <span class="currency-symbol">£</span> 
+ 
+                <input 
+                    type="number" 
+                    id="costPrice" 
+                    class="currency-input" 
+                    value="0.43" 
+                    min="0" 
+                    step="0.01" 
+                > 
+ 
+            </div> 
+ 
+        </div> 
+ 
+ 
+        <div class="input-group"> 
+ 
+            <label for="quantity"> 
+                Quantity sold 
+            </label> 
+ 
+            <input 
+                type="number" 
+                id="quantity" 
+                value="100" 
+                min="0" 
+                step="1" 
+            > 
+ 
+        </div> 
+ 
+    </div> 
+ 
+ 
+    <button onclick="calculateProfit()"> 
+        Calculate Profit 
+    </button> 
+ 
+ 
+    <div class="results"> 
+ 
+        <div class="result-card"> 
+ 
+            <p>Revenue</p> 
+ 
+            <h2 id="revenue"> 
+                £0.00 
+            </h2> 
+ 
+        </div> 
+ 
+ 
+        <div class="result-card"> 
+ 
+            <p>Total Product Cost</p> 
+ 
+            <h2 id="totalCost"> 
+                £0.00 
+            </h2> 
+ 
+        </div> 
+ 
+ 
+        <div class="result-card profit"> 
+ 
+            <p>Gross Profit</p> 
+ 
+            <h2 id="grossProfit"> 
+                £0.00 
+            </h2> 
+ 
+        </div> 
+ 
+ 
+        <div class="result-card margin"> 
+ 
+            <p>Gross Profit Margin</p> 
+ 
+            <h2 id="profitMargin"> 
+                0.00% 
+            </h2> 
+ 
+        </div> 
+ 
+    </div> 
+ 
+</div> 
+ 
+ 
+<script> 
+ 
+function calculateProfit() { 
+ 
+    // Get the numbers entered by the user 
+ 
+    const sellingPrice = 
+        parseFloat( 
+            document.getElementById("sellingPrice").value 
+        ) || 0; 
+ 
+    const costPrice = 
+        parseFloat( 
+            document.getElementById("costPrice").value 
+        ) || 0; 
+ 
+    const quantity = 
+        parseFloat( 
+            document.getElementById("quantity").value 
+        ) || 0; 
+ 
+ 
+    // Calculate the results 
+ 
+    const revenue = 
+        sellingPrice * quantity; 
+ 
+    const totalCost = 
+        costPrice * quantity; 
+ 
+    const grossProfit = 
+        revenue - totalCost; 
+ 
+ 
+    // Calculate profit margin 
+ 
+    let profitMargin = 0; 
+ 
+    if (revenue > 0) { 
+ 
+        profitMargin = 
+            (grossProfit / revenue) * 100; 
+ 
+    } 
+ 
+ 
+    // Display the results 
+ 
+    document.getElementById("revenue").textContent = 
+        formatCurrency(revenue); 
+ 
+    document.getElementById("totalCost").textContent = 
+        formatCurrency(totalCost); 
+ 
+    document.getElementById("grossProfit").textContent = 
+        formatCurrency(grossProfit); 
+ 
+    document.getElementById("profitMargin").textContent = 
+        profitMargin.toFixed(2) + "%"; 
+ 
+} 
+ 
+ 
+function formatCurrency(number) { 
+ 
+    return new Intl.NumberFormat( 
+        "en-GB", 
+        { 
+            style: "currency", 
+            currency: "GBP" 
+        } 
+    ).format(number); 
+ 
+} 
+ 
+ 
+// Run the calculator when the page first opens 
+ 
+calculateProfit(); 
+ 
+</script> 
+ 
+</body> 
+</html>
