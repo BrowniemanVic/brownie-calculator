@@ -19,3 +19,76 @@ Small food manufacturers
 
 WHAT PROBLEM WOULD THEY PAY TO SOLVE?
 Small food businesses struggle to know exactly how much profit they're making from each product.
+
+MY SAAS ARCHITECTURE
+
+FRONTEND
+What customers see and interact with.
+
+Examples:
+Dashboard
+Recipe calculator
+Profit calculator
+Wholesale calculator
+
+
+BACKEND
+The hidden logic behind the application.
+
+Examples:
+Check user permissions
+Process calculations
+Communicate with external services
+
+
+DATABASE
+The application's memory.
+
+Examples:
+Users
+Recipes
+Ingredients
+Products
+Prices
+
+
+APIs
+Connections to other software.
+
+Possible future examples:
+Payments
+AI
+Email
+Accounting
+
+MY FIRST DATABASE DESIGN
+
+Users
+id
+name
+email
+
+Products
+id
+user_id
+name
+selling_price
+portions
+
+Ingredients
+id
+product_id
+name
+quantity
+cost
+
+USER
+ │
+ │ has many
+ ▼
+PRODUCTS
+ │
+ │ has many
+ ▼
+INGREDIENTS
+

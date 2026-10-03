@@ -604,11 +604,13 @@ function calculateProfit() {
     // Calculate the results
 
     const revenue =
-        sellingPrice * quantity;
-
+        sellingPrice * quantity;    
+    
+    // Workout the total product cost
     const totalCost =
         costPrice * quantity;
 
+    // Gross profit is revenue minus total product cost
     const grossProfit =
         revenue - totalCost;
 
@@ -663,7 +665,7 @@ function calculateWholesale() {
 
 
     // Calculate the wholesale results
-
+    // Workout the total revenue
     const wholesaleRevenue =
         wholesalePrice * wholesaleQuantity;
 
